@@ -19,11 +19,11 @@ public class ItemPedido implements Serializable {
     private Integer quantidade;
     private Double preco;
 
-    public ItemPedido(){
-
+    /*Contrutor Vazio*/
+    public ItemPedido() {
     }
 
-    public ItemPedido(Produto produto, Pedido pedido,Double desconto, Integer quantidade, Double preco) {
+    public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
         super();
         id.setPedido(pedido);
         id.setProduto(produto);
@@ -34,11 +34,11 @@ public class ItemPedido implements Serializable {
     }
 
     @JsonIgnore
-    public Pedido getPedido(){
+    public Pedido getPedido() {
         return id.getPedido();
     }
 
-    public Produto  getProduto(){
+    public Produto getProduto() {
         return id.getProduto();
     }
 
