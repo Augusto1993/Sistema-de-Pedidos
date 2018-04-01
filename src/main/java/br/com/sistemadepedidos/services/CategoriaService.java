@@ -16,10 +16,36 @@ public class CategoriaService {
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não encontrado!! ID:" + id + ", Tipo: " + Categoria.class.getName());
         }
-
-
         return obj;
-
-
     }
+
+    public Categoria insert (Categoria obj){
+        obj.setId(null);
+        return repo.save(obj);
+    }
+
+ /*   public Categoria update(Categoria obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        try {
+            repo.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+        }
+    }
+
+    public List<Categoria> findAll(){
+        return repo.findAll();
+    }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = new PageRequest(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repo.findAll(pageRequest);
+    }
+
+    */
 }
