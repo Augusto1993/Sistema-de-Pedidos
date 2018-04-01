@@ -40,12 +40,14 @@ public class Pedido implements Serializable {
     }
 
     /* Construtor*/
-    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+
+    public Pedido(Integer id,Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+        super();
         this.id = id;
         this.instante = instante;
-
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
+
     }
 
     /* Métodos getters e setters  */

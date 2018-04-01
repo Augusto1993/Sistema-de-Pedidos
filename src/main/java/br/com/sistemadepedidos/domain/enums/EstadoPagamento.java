@@ -3,7 +3,7 @@ package br.com.sistemadepedidos.domain.enums;
 public enum EstadoPagamento {
     PENDENTE(1,"Pendente"),
     QUITADO(2,"Quitado"),
-    CANCELADO(2,"Cancelado");
+    CANCELADO(3,"Cancelado");
 
     /*Atributos*/
     private int cod;
