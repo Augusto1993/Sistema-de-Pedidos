@@ -1,10 +1,11 @@
 package br.com.sistemadepedidos.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+
 @Entity
 public class Endereco implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -20,7 +21,7 @@ public class Endereco implements Serializable {
 
 
     /*Associações*/
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

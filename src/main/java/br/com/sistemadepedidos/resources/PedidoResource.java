@@ -2,7 +2,6 @@ package br.com.sistemadepedidos.resources;
 
 
 
-
 import br.com.sistemadepedidos.domain.Pedido;
 import br.com.sistemadepedidos.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class PedidoResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id) {
-        Pedido obj = service.find(id);
+        Pedido obj = service.buscar(id);
         return ResponseEntity.ok().body(obj);
 
     }
