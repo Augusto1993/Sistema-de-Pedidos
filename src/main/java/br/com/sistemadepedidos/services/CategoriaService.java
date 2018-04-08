@@ -1,6 +1,7 @@
 package br.com.sistemadepedidos.services;
 
 import br.com.sistemadepedidos.domain.Categoria;
+import br.com.sistemadepedidos.dto.CategoriaDTO;
 import br.com.sistemadepedidos.repositories.CategoriaRepository;
 
 import br.com.sistemadepedidos.services.exceptions.DataIntegrityException;
@@ -56,5 +57,8 @@ public class CategoriaService {
         return repo.findAll(pageRequest);
     }
 
+    public Categoria fromDTO(CategoriaDTO objDto){
+        return new Categoria(objDto.getId(), objDto.getNome());
+    } 
 
 }
