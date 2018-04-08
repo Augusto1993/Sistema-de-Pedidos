@@ -1,6 +1,5 @@
 package br.com.sistemadepedidos.domain;
 
-
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,10 +7,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pagamento implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     /*Atributos*/
@@ -25,19 +24,18 @@ public abstract class Pagamento implements Serializable {
     private Pedido pedido;
 
     /* Construtor vazio */
-    public Pagamento(){
+    public Pagamento() {
 
     }
 
     /* Construtor*/
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
-        this.estado = estado.getCod();
+        this.estado = (estado == null) ? null : estado.getCod();
         this.pedido = pedido;
     }
 
     /* Métodos getters e setters  */
-
     public Integer getId() {
         return id;
     }
@@ -65,8 +63,12 @@ public abstract class Pagamento implements Serializable {
     /* Métodos equals e hashcode */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pagamento)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Pagamento)) {
+            return false;
+        }
         Pagamento pagamento = (Pagamento) o;
         return Objects.equals(getId(), pagamento.getId());
     }
