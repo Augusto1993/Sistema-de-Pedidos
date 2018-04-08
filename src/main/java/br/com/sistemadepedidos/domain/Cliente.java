@@ -3,13 +3,13 @@ package br.com.sistemadepedidos.domain;
 import br.com.sistemadepedidos.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+
 @Entity
 public class Cliente implements Serializable {
+
     private static final long serialVersionUID = 1L;
     /*Atributos*/
     @Id
@@ -21,7 +21,6 @@ public class Cliente implements Serializable {
     private Integer tipo;
 
     /*Associações*/
-
     @OneToMany(mappedBy = "cliente")
     private List<Endereco> enderecos = new ArrayList<>();
     @ElementCollection
@@ -31,14 +30,15 @@ public class Cliente implements Serializable {
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
-    public Cliente(){}
+    public Cliente() {
+    }
 
     public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCod();
+        this.tipo = (tipo == null) ? null : tipo.getCod();
     }
 
     public Integer getId() {
@@ -105,11 +105,14 @@ public class Cliente implements Serializable {
         this.telefones = telefones;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cliente)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Cliente)) {
+            return false;
+        }
         Cliente cliente = (Cliente) o;
         return Objects.equals(getId(), cliente.getId());
     }
