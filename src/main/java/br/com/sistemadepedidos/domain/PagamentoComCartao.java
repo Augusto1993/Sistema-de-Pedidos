@@ -1,20 +1,21 @@
 package br.com.sistemadepedidos.domain;
 
-
-
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 
 @Entity
-public class PagamentoComCartao extends Pagamento{
+@JsonTypeName("pagamentoComCartao")
+public class PagamentoComCartao extends Pagamento {
+
     private static final long serialVersionUID = 1L;
 
     /*Atributos*/
     private Integer numeroDeParcelas;
 
     /* Construtor vazio */
-    public PagamentoComCartao(){
+    public PagamentoComCartao() {
 
     }
 

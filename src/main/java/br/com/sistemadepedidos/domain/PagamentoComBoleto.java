@@ -1,13 +1,16 @@
 package br.com.sistemadepedidos.domain;
 
-
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
+
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento {
+
     private static final long serialVersionUID = 1L;
 
     /*Atributos*/
@@ -17,7 +20,8 @@ public class PagamentoComBoleto extends Pagamento {
     private Date dataPagamento;
 
     /* Construtor vazio */
-    public PagamentoComBoleto(){}
+    public PagamentoComBoleto() {
+    }
 
     /* Construtor*/
     public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
@@ -42,7 +46,5 @@ public class PagamentoComBoleto extends Pagamento {
     public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
-
-
 
 }
