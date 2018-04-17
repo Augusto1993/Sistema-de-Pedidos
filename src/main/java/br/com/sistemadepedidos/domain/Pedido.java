@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
 
@@ -32,22 +33,27 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens = new HashSet<>();
 
-
-
     /* Construtor vazio */
     public Pedido() {
 
     }
 
     /* Construtor*/
-
-    public Pedido(Integer id,Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         super();
         this.id = id;
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
 
+    }
+
+    public double getValorTotal() {
+        double soma = 0.0;
+        for (ItemPedido ip : itens) {
+            soma = soma + ip.getSubTotal();
+        }
+        return soma;
     }
 
     /* Métodos getters e setters  */
@@ -102,8 +108,12 @@ public class Pedido implements Serializable {
     /* Métodos equals e hashcode  */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pedido)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Pedido)) {
+            return false;
+        }
         Pedido pedido = (Pedido) o;
         return Objects.equals(getId(), pedido.getId());
     }

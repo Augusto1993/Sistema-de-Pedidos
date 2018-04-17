@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 public class ItemPedido implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @JsonIgnore
     @EmbeddedId
@@ -31,6 +32,10 @@ public class ItemPedido implements Serializable {
         this.quantidade = quantidade;
         this.preco = preco;
 
+    }
+
+    public double getSubTotal() {
+        return (preco - desconto) * quantidade;
     }
 
     @JsonIgnore
@@ -74,11 +79,14 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemPedido)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ItemPedido)) {
+            return false;
+        }
         ItemPedido that = (ItemPedido) o;
         return Objects.equals(getId(), that.getId());
     }
