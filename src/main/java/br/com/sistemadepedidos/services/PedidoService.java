@@ -4,6 +4,7 @@ import br.com.sistemadepedidos.domain.ItemPedido;
 import br.com.sistemadepedidos.domain.PagamentoComBoleto;
 import br.com.sistemadepedidos.domain.Pedido;
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
+import br.com.sistemadepedidos.repositories.ClienteRepository;
 import br.com.sistemadepedidos.repositories.ItemPedidoRepository;
 import br.com.sistemadepedidos.repositories.PagamentoRepository;
 import br.com.sistemadepedidos.repositories.PedidoRepository;
@@ -32,6 +33,9 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Pedido find(Integer id) {
         Pedido obj = repo.findOne(id);
         if (obj == null) {
@@ -45,6 +49,7 @@ public class PedidoService {
     @Transactional
     public Pedido insert(Pedido obj) {
         obj.setId(null);
+        obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
         obj.setInstante(new Date());
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
@@ -56,10 +61,12 @@ public class PedidoService {
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido ip : obj.getItens()) {
             ip.setDesconto(0.0);
-            ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+            ip.setProduto(produtoRepository.findOne(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
             ip.setPedido(obj);
         }
         itemPedidoRepository.save(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
 }
