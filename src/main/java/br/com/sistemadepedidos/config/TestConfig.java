@@ -6,6 +6,8 @@
 package br.com.sistemadepedidos.config;
 
 import br.com.sistemadepedidos.services.DBService;
+import br.com.sistemadepedidos.services.EmailService;
+import br.com.sistemadepedidos.services.MockEmailService;
 import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,7 +16,7 @@ import org.springframework.context.annotation.Profile;
 
 /**
  *
- * @author grazz
+ * @author Grazziano Fagundes
  */
 @Configuration
 @Profile("test")
@@ -27,5 +29,10 @@ public class TestConfig {
     public boolean instantiateDatabase() throws ParseException {
         dbService.instantiateTestDatabase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService();
     }
 }
