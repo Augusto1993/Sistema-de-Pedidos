@@ -29,10 +29,10 @@ public class DevConfig {
 
     @Bean
     public boolean instantiateDatabase() throws ParseException {
-        if (!"create-drop".equals(strategy)) {
+        if (!"create".equals(strategy)) {
             return false;
         }
-        
+
         dbService.instantiateTestDatabase();
         return true;
     }
