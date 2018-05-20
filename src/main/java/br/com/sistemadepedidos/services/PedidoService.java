@@ -4,10 +4,7 @@ import br.com.sistemadepedidos.domain.ItemPedido;
 import br.com.sistemadepedidos.domain.PagamentoComBoleto;
 import br.com.sistemadepedidos.domain.Pedido;
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
-import br.com.sistemadepedidos.repositories.ItemPedidoRepository;
-import br.com.sistemadepedidos.repositories.PagamentoRepository;
-import br.com.sistemadepedidos.repositories.PedidoRepository;
-import br.com.sistemadepedidos.repositories.ProdutoRepository;
+import br.com.sistemadepedidos.repositories.*;
 import br.com.sistemadepedidos.services.exceptions.ObjectNotFoundException;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +29,9 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public Pedido find(Integer id) {
         Pedido obj = repo.findOne(id);
         if (obj == null) {
@@ -46,6 +46,7 @@ public class PedidoService {
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -56,10 +57,12 @@ public class PedidoService {
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido ip : obj.getItens()) {
             ip.setDesconto(0.0);
-            ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getPreco());
+            ip.setProduto(produtoRepository.findOne(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
             ip.setPedido(obj);
         }
         itemPedidoRepository.save(obj.getItens());
+        System.out.println(obj);
         return obj;
     }
 }
