@@ -4,11 +4,7 @@ import br.com.sistemadepedidos.domain.ItemPedido;
 import br.com.sistemadepedidos.domain.PagamentoComBoleto;
 import br.com.sistemadepedidos.domain.Pedido;
 import br.com.sistemadepedidos.domain.enums.EstadoPagamento;
-import br.com.sistemadepedidos.repositories.ClienteRepository;
-import br.com.sistemadepedidos.repositories.ItemPedidoRepository;
-import br.com.sistemadepedidos.repositories.PagamentoRepository;
-import br.com.sistemadepedidos.repositories.PedidoRepository;
-import br.com.sistemadepedidos.repositories.ProdutoRepository;
+import br.com.sistemadepedidos.repositories.*;
 import br.com.sistemadepedidos.services.exceptions.ObjectNotFoundException;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +31,7 @@ public class PedidoService {
 
     @Autowired
     private ClienteRepository clienteRepository;
-    
+
     @Autowired
     private EmailService emailService;
 
@@ -52,8 +48,8 @@ public class PedidoService {
     @Transactional
     public Pedido insert(Pedido obj) {
         obj.setId(null);
-        obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
         obj.setInstante(new Date());
+        obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {

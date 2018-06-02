@@ -69,6 +69,7 @@ public class DBService {
         Categoria cat6 = new Categoria(null, "Decoração");
         Categoria cat7 = new Categoria(null, "Perfumaria");
 
+
         Produto p1 = new Produto(null, "Computador", 2000.00);
         Produto p2 = new Produto(null, "Impressora", 800.00);
         Produto p3 = new Produto(null, "Mouse", 80.00);
@@ -117,7 +118,7 @@ public class DBService {
         estadoRepository.save(Arrays.asList(est1, est2));
         cidadeRepository.save(Arrays.asList(c1, c2, c3));
 
-        Cliente cli1 = new Cliente(null, "Augusto Mathias", "mathias@gmail.com", "03456010095", TipoCliente.PESSOAFISICA);
+        Cliente cli1 = new Cliente(null, "Augusto Mathias", "springusuario@outlook.com", "03456010095", TipoCliente.PESSOAFISICA);
         cli1.getTelefones().addAll(Arrays.asList("32717561", "991386048"));
 
         Endereco e1 = new Endereco(null, "Rua Miguel Souza Soares", "743", "Casa", "Fragata", "96045040", cli1, c1);

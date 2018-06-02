@@ -6,6 +6,8 @@
 package br.com.sistemadepedidos.config;
 
 import br.com.sistemadepedidos.services.DBService;
+import br.com.sistemadepedidos.services.EmailService;
+import br.com.sistemadepedidos.services.SmtpEmailService;
 import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +31,15 @@ public class DevConfig {
 
     @Bean
     public boolean instantiateDatabase() throws ParseException {
-        if (!"create-drop".equals(strategy)) {
+        if (!"create".equals(strategy)) {
             return false;
         }
-        
+
         dbService.instantiateTestDatabase();
         return true;
+    }
+    @Bean
+    public EmailService emailService(){
+        return new SmtpEmailService();
     }
 }
