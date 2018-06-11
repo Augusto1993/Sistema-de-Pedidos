@@ -6,13 +6,14 @@
 package br.com.sistemadepedidos.dto;
 
 import br.com.sistemadepedidos.services.validation.ClienteInsert;
+
 import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
- *
  * @author Grazziano Fagundes
  */
 @ClienteInsert
@@ -31,6 +32,9 @@ public class ClienteNewDTO implements Serializable {
     @NotEmpty(message = "Preenchimento Obrigatório")
     private String cpfOuCnpj;
     private Integer tipo;
+
+    @NotEmpty(message = "Preenchimento obrigatório")
+    private String senha;
 
     @NotEmpty(message = "Preenchimento Obrigatório")
     private String logradouro;
@@ -161,4 +165,12 @@ public class ClienteNewDTO implements Serializable {
         this.cidadeId = cidadeId;
     }
 
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }
