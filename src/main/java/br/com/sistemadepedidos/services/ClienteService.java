@@ -3,12 +3,14 @@ package br.com.sistemadepedidos.services;
 import br.com.sistemadepedidos.domain.Cidade;
 import br.com.sistemadepedidos.domain.Cliente;
 import br.com.sistemadepedidos.domain.Endereco;
+import br.com.sistemadepedidos.domain.enums.Perfil;
 import br.com.sistemadepedidos.domain.enums.TipoCliente;
 import br.com.sistemadepedidos.dto.ClienteDTO;
 import br.com.sistemadepedidos.dto.ClienteNewDTO;
 import br.com.sistemadepedidos.repositories.CidadeRepository;
 import br.com.sistemadepedidos.repositories.ClienteRepository;
 import br.com.sistemadepedidos.repositories.EnderecoRepository;
+import br.com.sistemadepedidos.security.UserSS;
 import br.com.sistemadepedidos.services.exceptions.DataIntegrityException;
 import br.com.sistemadepedidos.services.exceptions.ObjectNotFoundException;
 
@@ -40,10 +42,16 @@ public class ClienteService {
     private EnderecoRepository enderecoRepository;
 
     public Cliente find(Integer id) {
+
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Cliente obj = repo.findOne(id);
         if (obj == null) {
-            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id
-                    + ", Tipo: " + Cliente.class.getName());
+            throw new ObjectNotFoundException(
+                    "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName());
         }
         return obj;
     }
