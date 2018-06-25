@@ -36,7 +36,7 @@ public class S3Service {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
-			throw new RuntimeException("Erro de IO: " + e.getMessage());
+			throw new FileException("Erro de IO: " + e.getMessage());
 		}
 
 	}
@@ -52,7 +52,7 @@ public class S3Service {
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			// e.printStackTrace();
-			throw new RuntimeException("Erro ao converter URL para URI");
+			throw new FileException("Erro ao converter URL para URI");
 		}
 	}
 
