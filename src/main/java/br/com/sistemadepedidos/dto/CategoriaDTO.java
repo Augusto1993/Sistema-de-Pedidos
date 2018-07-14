@@ -1,42 +1,42 @@
 package br.com.sistemadepedidos.dto;
 
-import br.com.sistemadepedidos.domain.Categoria;
-
 import java.io.Serializable;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.sistemadepedidos.domain.Categoria;
+
 public class CategoriaDTO implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private Integer id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+	private String nome;
 
-    private static final long serialVersionUID = 1L;
+	public CategoriaDTO() {
+	}
+	
+	public CategoriaDTO(Categoria obj) {
+		id = obj.getId();
+		nome = obj.getNome();
+	}
 
-    private Integer id;
+	public Integer getId() {
+		return id;
+	}
 
-    @NotEmpty(message = "Preenchimento obrigatório")
-    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres")
-    private String nome;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public CategoriaDTO() {
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public CategoriaDTO(Categoria obj) {
-        id = obj.getId();
-        nome = obj.getNome();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}	
 }

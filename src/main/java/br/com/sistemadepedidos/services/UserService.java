@@ -1,16 +1,17 @@
 package br.com.sistemadepedidos.services;
 
-import br.com.sistemadepedidos.security.UserSS;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class UserService {
+import br.com.sistemadepedidos.security.UserSS;
 
-    public static UserSS authenticated() {
-        try {
-            return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        }
-        catch (Exception e) {
-            return null;
-        }
-    }
+public class UserService {
+	
+	public static UserSS authenticated() {
+		try {
+			return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}
+		catch (Exception e) {
+			return null;
+		}
+	}
 }
